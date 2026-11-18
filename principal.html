@@ -16,6 +16,9 @@
       --footer-bg: #202224;
       --hero-grad-1: #3c4043;
       --hero-grad-2: #242729;
+      --blend-mode: luminosity; /* Hace que la marca de agua se adapte al fondo */
+      --logo-blend: multiply;   /* Elimina el fondo blanco de la torre */
+      --logo-bg: #2b2e31;
     }
 
     /* Variables para el Modo Claro */
@@ -30,6 +33,9 @@
       --footer-bg: #e2e7ec;
       --hero-grad-1: #ffffff;
       --hero-grad-2: #e4e9ed;
+      --blend-mode: multiply;
+      --logo-blend: multiply;
+      --logo-bg: #ffffff;
     }
 
     * {
@@ -64,13 +70,13 @@
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     }
 
-    /* Logo y Texto en la barra superior */
+    /* Logo y Texto en la barra superior con fondo integrado */
     .brand-link {
       display: flex;
       align-items: center;
       gap: 10px;
       text-decoration: none;
-      background-color: var(--bg-oscuro);
+      background-color: var(--logo-bg);
       padding: 6px 12px;
       border-radius: 8px;
       border: 1px solid rgba(217, 155, 38, 0.3);
@@ -86,6 +92,8 @@
       height: 38px;
       width: auto;
       border-radius: 4px;
+      /* Elimina el fondo blanco de la torre y la funde con el color del contenedor */
+      mix-blend-mode: var(--logo-blend); 
     }
 
     .brand-text {
@@ -124,7 +132,6 @@
       transform: translateY(-2px);
     }
 
-    /* Botón de la sección actual o destacada */
     .nav-btn.activo {
       background-color: var(--dorado);
       color: #ffffff;
@@ -166,7 +173,7 @@
       cursor: pointer;
     }
 
-    /* --- ÁREA PRINCIPAL (HERO CON MARCA DE AGUA) --- */
+    /* --- ÁREA PRINCIPAL (HERO CON MARCA DE AGUA EXTENDIDA) --- */
     main {
       flex: 1;
       position: relative;
@@ -176,21 +183,22 @@
       align-items: center;
       text-align: center;
       padding: 60px 20px;
+      overflow: hidden;
       background: radial-gradient(circle at center, var(--hero-grad-1) 0%, var(--hero-grad-2) 100%);
     }
 
-    /* Imagen de fondo tipo marca de agua */
+    /* Imagen de fondo extendida cubriendo todo el contenedor */
     .marca-agua {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 85%;
-      max-width: 780px;
-      opacity: 0.12;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Abarca toda la pantalla sin cortes bruscos */
+      opacity: 0.10;
       pointer-events: none;
       user-select: none;
-      filter: drop-shadow(0 0 25px rgba(217, 155, 38, 0.2));
+      mix-blend-mode: var(--blend-mode); /* Se funde perfectamente con el modo claro u oscuro */
     }
 
     /* Contenido frontal sobre la marca de agua */
@@ -234,7 +242,6 @@
       margin-bottom: 35px;
     }
 
-    /* Contenedor de botones rápidos */
     .accesos-rapidos {
       display: flex;
       gap: 15px;
@@ -334,16 +341,13 @@
 
   <!-- ENCABEZADO SUPERIOR -->
   <header>
-    <!-- Logo superior izquierdo con texto institucional -->
     <a href="index.html" class="brand-link" title="Volver a la portada">
       <img src="logotorre.jpg" alt="Logo Naciones a la Luz" class="brand-logo">
       <span class="brand-text">Naciones<br>a la Luz</span>
     </a>
 
-    <!-- Botón de menú para pantallas pequeñas -->
     <button class="menu-toggle" id="btnMenu" aria-label="Abrir menú">☰</button>
 
-    <!-- Botones de secciones y Modo Oscuro -->
     <nav>
       <ul id="listaMenu">
         <li><a href="principal.html" class="nav-btn activo">Inicio</a></li>
@@ -361,7 +365,7 @@
 
   <!-- CONTENIDO PRINCIPAL -->
   <main>
-    <!-- Marca de agua central -->
+    <!-- Imagen de fondo expandida a toda la pantalla -->
     <img src="logocompleto.jpg" alt="" class="marca-agua">
 
     <div class="hero-contenido">
@@ -384,9 +388,7 @@
     &copy; 2026 Iglesia Bíblica Naciones a la Luz — Todos los derechos reservados.
   </footer>
 
-  <!-- Scripts de interactividad -->
   <script>
-    // Menú desplegable en dispositivos móviles
     const btnMenu = document.getElementById('btnMenu');
     const listaMenu = document.getElementById('listaMenu');
 
@@ -394,17 +396,16 @@
       listaMenu.classList.toggle('mostrar');
     });
 
-    // Control de Modo Oscuro / Modo Claro
     const themeToggleBtn = document.getElementById('themeToggleBtn');
     const bodyElement = document.body;
 
     themeToggleBtn.addEventListener('click', () => {
       if (bodyElement.getAttribute('data-theme') === 'dark') {
         bodyElement.setAttribute('data-theme', 'light');
-        themeToggleBtn.textContent = '☀️'; // Icono de sol para volver a oscuro
+        themeToggleBtn.textContent = '☀️';
       } else {
         bodyElement.setAttribute('data-theme', 'dark');
-        themeToggleBtn.textContent = '🌙'; // Icono de luna para modo oscuro
+        themeToggleBtn.textContent = '🌙';
       }
     });
   </script>
