@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inicio | Iglesia Bíblica Naciones a la Luz</title>
+  <style>
+    :root {
+      --bg-oscuro: #2b2e31;
+      --bg-tarjeta: #3c4043;
+      --dorado: #d99b26;
+      --dorado-claro: #f0be59;
+      --texto-blanco: #f5f5f5;
+      --texto-gris: #b0b5ba;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg-oscuro);
+      color: var(--texto-blanco);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* --- BARRA DE NAVEGACIÓN SUPERIOR --- */
+    header {
+      background-color: rgba(43, 46, 49, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(217, 155, 38, 0.25);
+      padding: 12px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Logo esquina superior izquierda */
+    .brand-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      height: 48px;
+      width: auto;
+      border-radius: 6px;
+      transition: transform 0.3s ease;
+    }
+
+    .brand-link:hover .brand-logo {
+      transform: scale(1.04);
+    }
+
+    /* Menú de secciones */
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .nav-btn {
+      color: var(--texto-blanco);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 10px 18px;
+      border-radius: 25px;
+      border: 1px solid transparent;
+      transition: all 0.3s ease;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-btn:hover {
+      color: var(--dorado-claro);
+      background-color: rgba(217, 155, 38, 0.12);
+      border-color: rgba(217, 155, 38, 0.4);
+      transform: translateY(-2px);
+    }
+
+    /* Botón de la sección actual o destacada */
+    .nav-btn.activo {
+      background-color: var(--dorado);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(217, 155, 38, 0.35);
+    }
+
+    /* Botón hamburguesa para celulares */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: 1px solid var(--dorado);
+      color: var(--dorado);
+      font-size: 1.5rem;
+      padding: 4px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    /* --- ÁREA PRINCIPAL (HERO CON MARCA DE AGUA) --- */
+    main {
+      flex: 1;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 60px 20px;
+      background: radial-gradient(circle at center, #3c4043 0%, #242729 100%);
+    }
+
+    /* Imagen de fondo tipo marca de agua como en tu boceto */
+    .marca-agua {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 85%;
+      max-width: 780px;
+      opacity: 0.14; /* Efecto sutil de marca de agua */
+      pointer-events: none;
+      user-select: none;
+      filter: drop-shadow(0 0 25px rgba(217, 155, 38, 0.2));
+    }
+
+    /* Contenido frontal sobre la marca de agua */
+    .hero-contenido {
+      position: relative;
+      z-index: 2;
+      max-width: 750px;
+      animation: fadeInUp 0.9s ease-out;
+    }
+
+    .etiqueta-superior {
+      display: inline-block;
+      color: var(--dorado-claro);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 16px;
+      padding: 6px 16px;
+      border: 1px solid rgba(217, 155, 38, 0.4);
+      border-radius: 50px;
+      background-color: rgba(217, 155, 38, 0.08);
+    }
+
+    .hero-contenido h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 18px;
+      color: #ffffff;
+    }
+
+    .hero-contenido h1 span {
+      color: var(--dorado);
+    }
+
+    .hero-contenido p {
+      font-size: 1.15rem;
+      color: var(--texto-gris);
+      line-height: 1.6;
+      margin-bottom: 35px;
+    }
+
+    /* Contenedor placeholder para futuros botones o tarjetas rápidas */
+    .accesos-rapidos {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-secundario {
+      padding: 12px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-dorado {
+      background-color: var(--dorado);
+      color: #fff;
+      border: 2px solid var(--dorado);
+    }
+
+    .btn-dorado:hover {
+      background-color: var(--dorado-claro);
+      border-color: var(--dorado-claro);
+      color: #2b2e31;
+    }
+
+    .btn-borde {
+      background-color: transparent;
+      color: var(--texto-blanco);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-borde:hover {
+      border-color: var(--dorado);
+      color: var(--dorado-claro);
+    }
+
+    /* --- PIE DE PÁGINA SENCILLO --- */
+    footer {
+      background-color: #202224;
+      color: var(--texto-gris);
+      text-align: center;
+      padding: 18px;
+      font-size: 0.85rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* --- DISEÑO RESPONSIVO PARA CELULARES --- */
+    @media (max-width: 820px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      nav ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        width: 100%;
+        background-color: #2b2e31;
+        padding: 20px;
+        border-bottom: 2px solid var(--dorado);
+        gap: 12px;
+      }
+
+      nav ul.mostrar {
+        display: flex;
+      }
+
+      .nav-btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+      }
+
+      .hero-contenido h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ENCABEZADO SUPERIOR -->
+  <header>
+    <!-- Logo superior izquierdo (regresa a la portada o al inicio) -->
+    <a href="index.html" class="brand-link" title="Volver a la portada">
+      <img src="IMG-20261115-WA0003.jpg" alt="Logo Naciones a la Luz" class="brand-logo">
+    </a>
+
+    <!-- Botón de menú para pantallas pequeñas -->
+    <button class="menu-toggle" id="btnMenu" aria-label="Abrir menú">☰</button>
+
+    <!-- Botones de secciones (listos para personalizar más adelante) -->
+    <nav>
+      <ul id="listaMenu">
+        <li><a href="principal.html" class="nav-btn activo">Inicio</a></li>
+        <li><a href="#seccion-1" class="nav-btn">Nosotros</a></li>
+        <li><a href="#seccion-2" class="nav-btn">Predicaciones</a></li>
+        <li><a href="#seccion-3" class="nav-btn">Ministerios</a></li>
+        <li><a href="#seccion-4" class="nav-btn">Eventos</a></li>
+        <li><a href="#seccion-5" class="nav-btn">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main>
+    <!-- Marca de agua central inspirada en tu boceto -->
+    <img src="IMG-20261115-WA0003.jpg" alt="" class="marca-agua">
+
+    <div class="hero-contenido">
+      <span class="etiqueta-superior">Alumbrando tu propósito</span>
+      <h1>Bienvenidos a <span>Iglesia Bíblica Naciones a la Luz</span></h1>
+      <p>
+        Este es el espacio principal de nuestra comunidad. Aquí podrás explorar nuestras secciones, 
+        conocer nuestras actividades y mantenerte conectado con lo que Dios está haciendo.
+      </p>
+
+      <div class="accesos-rapidos">
+        <a href="#seccion-1" class="btn-secundario btn-dorado">Conócenos</a>
+        <a href="#seccion-4" class="btn-secundario btn-borde">Horarios y Reuniones</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer>
+    &copy; 2026 Iglesia Bíblica Naciones a la Luz — Todos los derechos reservados.
+  </footer>
+
+  <!-- Script sencillo para abrir/cerrar menú en celulares -->
+  <script>
+    const btnMenu = document.getElementById('btnMenu');
+    const listaMenu = document.getElementById('listaMenu');
+
+    btnMenu.addEventListener('click', () => {
+      listaMenu.classList.toggle('mostrar');
+    });
+  </script>
+
+</body>
+</html>
