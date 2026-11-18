@@ -16,8 +16,8 @@
       --footer-bg: #202224;
       --hero-grad-1: #3c4043;
       --hero-grad-2: #242729;
-      --blend-mode: luminosity; /* Hace que la marca de agua se adapte al fondo */
-      --logo-blend: multiply;   /* Elimina el fondo blanco de la torre */
+      --blend-mode: luminosity;
+      --logo-blend: multiply;
       --logo-bg: #2b2e31;
     }
 
@@ -70,14 +70,14 @@
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     }
 
-    /* Logo y Texto en la barra superior con fondo integrado */
+    /* Logo y Texto en una sola línea */
     .brand-link {
       display: flex;
       align-items: center;
       gap: 10px;
       text-decoration: none;
       background-color: var(--logo-bg);
-      padding: 6px 12px;
+      padding: 6px 14px;
       border-radius: 8px;
       border: 1px solid rgba(217, 155, 38, 0.3);
       transition: transform 0.3s ease, border-color 0.3s ease;
@@ -89,20 +89,19 @@
     }
 
     .brand-logo {
-      height: 38px;
+      height: 36px;
       width: auto;
       border-radius: 4px;
-      /* Elimina el fondo blanco de la torre y la funde con el color del contenedor */
       mix-blend-mode: var(--logo-blend); 
     }
 
     .brand-text {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       font-weight: 700;
       color: var(--dorado);
       letter-spacing: 0.5px;
-      line-height: 1.1;
       text-transform: uppercase;
+      white-space: nowrap; /* Evita que el texto se divida en dos líneas */
     }
 
     /* Menú de secciones */
@@ -187,21 +186,19 @@
       background: radial-gradient(circle at center, var(--hero-grad-1) 0%, var(--hero-grad-2) 100%);
     }
 
-    /* Imagen de fondo extendida cubriendo todo el contenedor */
     .marca-agua {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover; /* Abarca toda la pantalla sin cortes bruscos */
+      object-fit: cover;
       opacity: 0.10;
       pointer-events: none;
       user-select: none;
-      mix-blend-mode: var(--blend-mode); /* Se funde perfectamente con el modo claro u oscuro */
+      mix-blend-mode: var(--blend-mode);
     }
 
-    /* Contenido frontal sobre la marca de agua */
     .hero-contenido {
       position: relative;
       z-index: 2;
@@ -298,7 +295,7 @@
     }
 
     /* --- DISEÑO RESPONSIVO PARA CELULARES --- */
-    @media (max-width: 860px) {
+    @media (max-width: 920px) {
       .menu-toggle {
         display: block;
       }
@@ -335,6 +332,16 @@
         font-size: 2rem;
       }
     }
+
+    /* Ajuste para pantallas muy pequeñas de celulares para que el texto de la barra quepa bien */
+    @media (max-width: 480px) {
+      .brand-text {
+        font-size: 0.8rem;
+      }
+      .brand-logo {
+        height: 30px;
+      }
+    }
   </style>
 </head>
 <body data-theme="dark">
@@ -343,7 +350,7 @@
   <header>
     <a href="index.html" class="brand-link" title="Volver a la portada">
       <img src="logotorre.jpg" alt="Logo Naciones a la Luz" class="brand-logo">
-      <span class="brand-text">Naciones<br>a la Luz</span>
+      <span class="brand-text">Naciones a la Luz</span>
     </a>
 
     <button class="menu-toggle" id="btnMenu" aria-label="Abrir menú">☰</button>
@@ -365,7 +372,6 @@
 
   <!-- CONTENIDO PRINCIPAL -->
   <main>
-    <!-- Imagen de fondo expandida a toda la pantalla -->
     <img src="logocompleto.jpg" alt="" class="marca-agua">
 
     <div class="hero-contenido">
